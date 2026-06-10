@@ -276,10 +276,12 @@ function render() {
     if (visible) {
       visibleByN.add(r.n);
       visibleEntities += 1;
+      const displayN = visibleEntities;
       if (r.status === 'full') full += 1;
       else if (r.status === 'updated') updated += 1;
       else issues += 1;
       if (r.group) visibleGroups.add(r.group);
+      r._displayN = displayN;
     }
   }
 
@@ -306,7 +308,7 @@ function render() {
     const hasFka = row.fka || row.name_change_date;
     rowsHtml.push(`
       <tr class="row-link row-status-${row.status}" onclick="toggle('row-${row.n}')">
-        <td class="num-cell">${row.n}</td>
+        <td class="num-cell">${row._displayN}</td>
         <td title="${escapeHtml(row.entity)}">${escapeHtml(row.entity)}</td>
         <td>${escapeHtml(row.state || '—')}</td>
         <td>${statusBadge(row.status)}</td>
